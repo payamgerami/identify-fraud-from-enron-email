@@ -28,12 +28,12 @@ Scaling the 'fraction_from_poi' and 'fraction_to_poi' by the total number of ema
 __Selected Features__
 I used a univariate feature selection process, select k-best, in a pipeline with grid search to select the features. Select k-best removes all but the k highest scoring features. The number of features, 'k', was chosen through an exhaustive grid search driven by the 'f1' scoring estimator, intending to maximize precision and recall.  
 The following six features was chosen in POI identifier, which was a decision tree classifier.
-* Feature no. 1: salary  
-* Feature no. 2: bonus
-* Feature no. 3: total_stock_value
-* Feature no. 4: exercised_stock_options
-* Feature no. 5: fraction_to_poi
-* Feature no. 6: shared_receipt_with_poi
+* Feature no. 1: salary , feature importance = 0.0 , feature score = 17.7678544529
+* Feature no. 2: bonus , feature importance = 0.0 , feature score = 34.2129648303
+* Feature no. 3: total_stock_value , feature importance = 0.161133848573 , feature score = 16.8651432616
+* Feature no. 4: exercised_stock_options , feature importance = 0.0 , feature score = 16.9328653375
+* Feature no. 5: fraction_to_poi , feature importance = 0.658595952706 , feature score = 18.1067164085
+* Feature no. 6: shared_receipt_with_poi , feature importance = 0.180270198721 , feature score = 6.1299573021
 
 __3.__ What algorithm did you end up using?  What other one(s) did you try? [relevant rubric item: “pick an algorithm”]
 
@@ -59,6 +59,8 @@ For the chosen decision tree classifier for example, I tried out multiple differ
 * max_depth: None, 1, 2, 3 and 4
 * min_samples_split: 1, 2, 3, 4 and 25
 * class_weight: None and balanced
+
+If you don't tune the algorithm well, the data won't be "learned" well and you won't be able to successfully make predictions on new data. If we set the paremeter poorly, it can be highly possible to get poor result or take so much time to calculate.
 
 __5.__ What is validation, and what’s a classic mistake you can make if you do it wrong?  How did you validate your analysis?  [relevant rubric item: “validation strategy”]
 

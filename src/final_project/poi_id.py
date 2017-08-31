@@ -99,14 +99,15 @@ parameters = dict(
 ### http://scikit-learn.org/stable/modules/generated/sklearn.cross_validation.StratifiedShuffleSplit.html
 
 #Split features and labels into train and test data.
-features_train, features_test, labels_train, labels_test = train_test_split(features, labels, test_size=0.3, random_state=42)
+#There shouldn't be any need to partition the data in this line because it will be done behind the scenes during the grid search process in the lines below. 
+#features_train, features_test, labels_train, labels_test = train_test_split(features, labels, test_size=0.3, random_state=42)
 
 # Cross-validation for parameter tuning in grid search 
 sss = StratifiedShuffleSplit(labels_train,n_iter = 20,test_size = 0.5,random_state = 0)
 
 # Create, fit, and make predictions with grid search
 gs = GridSearchCV(pipeline,param_grid=parameters,scoring="f1",cv=sss,error_score=0)
-gs.fit(features_train, labels_train)
+gs.fit(features, labels)
 labels_predictions = gs.predict(features_test)
 
 # Pick the classifier with the best tuned parameters
