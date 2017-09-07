@@ -103,7 +103,7 @@ Validation is process of determining how well your model performs or fits, using
 
 In my poi_id.py file, my data was separated into training and testing sets. The test size was 30% of the data, while the training set was 70%.
 
-Considering the fact that in this project we are dealing with a small dataset I use StratifiedShuffleSplit.
+Considering the fact that in this project we are dealing with a small and imbalance dataset I use StratifiedShuffleSplit.
 
 __6.__ Give at least 2 evaluation metrics, and your average performance for each of them.  Explain an interpretation of your metrics that says something human-understandable about your algorithm’s performance. [Relevant rubric item: “usage of evaluation metrics”]
 
