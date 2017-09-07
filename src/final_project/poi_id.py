@@ -21,13 +21,14 @@ from poi_utils import fraction
 ### Task 1: Select what features you'll use.
 ### features_list is a list of strings, each of which is a feature name.
 ### The first feature must be "poi".
-features_list = ['poi',
-                 'salary',
-                 'bonus',
-                 'total_stock_value',
+features_list = [
+                 'poi',
                  'exercised_stock_options',
-                 'fraction_to_poi',
-                 'shared_receipt_with_poi'
+                 'total_stock_value',
+                 'bonus',
+                 'bonus_ratio',
+                 'salary',
+                 'deferred_income'
                  ]
 
 ### Load the dictionary containing the dataset
@@ -46,16 +47,15 @@ my_dataset = data_dict
 for name in my_dataset:
     from_poi_to_this_person = my_dataset[name]["from_poi_to_this_person"]
     to_messages = my_dataset[name]["to_messages"]
-    fraction_from_poi = fraction( from_poi_to_this_person, to_messages )
-    
-    my_dataset[name]["fraction_from_poi"] = fraction_from_poi
+    my_dataset[name]["fraction_from_poi"] = fraction( from_poi_to_this_person, to_messages )
    
     from_this_person_to_poi = my_dataset[name]["from_this_person_to_poi"]
     from_messages = my_dataset[name]["from_messages"]
-    fraction_to_poi = fraction( from_this_person_to_poi, from_messages )
+    my_dataset[name]["fraction_to_poi"] = fraction( from_this_person_to_poi, from_messages )
    
-    my_dataset[name]["fraction_to_poi"] = fraction_to_poi
-
+    bonus = my_dataset[name]["bonus"]
+    total_payments = my_dataset[name]["total_payments"]
+    my_dataset[name]["bonus_ratio"] = fraction( bonus, total_payments )
 
 ### Extract features and labels from dataset for local testing
 data = featureFormat(my_dataset, features_list, sort_keys = True)
@@ -83,12 +83,9 @@ steps = [('feature_selection', select),
 pipeline = Pipeline(steps)
 
 parameters = dict(
-                  feature_selection__k=[2, 3, 5, 6], 
-                  dtc__criterion=['gini', 'entropy'],
-                  dtc__max_depth=[None, 1, 2, 3, 4],
-                  dtc__min_samples_split=[1, 2, 3, 4, 25],
-                  dtc__class_weight=[None, 'balanced'],
-                  dtc__random_state=[42]
+                  feature_selection__k=[2, 3, 5, 6, 9], 
+                  dtc__max_depth=[1, 2, 3, 4],
+                  dtc__min_samples_split=[2, 5, 10],
                   )
 
 ### Task 5: Tune your classifier to achieve better than .3 precision and recall 
@@ -103,12 +100,11 @@ parameters = dict(
 #features_train, features_test, labels_train, labels_test = train_test_split(features, labels, test_size=0.3, random_state=42)
 
 # Cross-validation for parameter tuning in grid search 
-sss = StratifiedShuffleSplit(labels_train,n_iter = 20,test_size = 0.5,random_state = 0)
+sss = StratifiedShuffleSplit(labels,n_iter = 10,test_size = 0.3,random_state = 0)
 
 # Create, fit, and make predictions with grid search
 gs = GridSearchCV(pipeline,param_grid=parameters,scoring="f1",cv=sss,error_score=0)
 gs.fit(features, labels)
-labels_predictions = gs.predict(features_test)
 
 # Pick the classifier with the best tuned parameters
 clf = gs.best_estimator_
