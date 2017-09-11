@@ -84,8 +84,12 @@ pipeline = Pipeline(steps)
 
 parameters = dict(
                   feature_selection__k=[2, 3, 5, 6, 9], 
-                  dtc__max_depth=[1, 2, 3, 4],
-                  dtc__min_samples_split=[2, 5, 10],
+                  dtc__max_depth=[None,1, 2, 3, 4, 5, 10, 20, 40],
+                  dtc__min_samples_split=[2, 5, 10, 20, 40],
+                  dtc__criterion=['gini', 'entropy'],
+	              dtc__splitter=['best','random'],
+                  dtc__class_weight=[None, 'balanced'],
+                  dtc__random_state=[None, 42]
                   )
 
 ### Task 5: Tune your classifier to achieve better than .3 precision and recall 

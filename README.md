@@ -82,7 +82,7 @@ Among them, decision tree classifier was chosen with the following performance r
 __4.__ What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well?  How did you tune the parameters of your particular algorithm?  (Some algorithms don’t have parameters that you need to tune--if this is the case for the one you picked, identify and briefly explain how you would have done it if you used, say, a decision tree classifier). [relevant rubric item: “tune the algorithm”]
 
 __Parameters Tuning__
-Tuning is the process of altering algorithm parameters to effect performance.  Poor tuning can result in poor algorithm performance.  It can also result in an algorithm that gives reasonable performance but is not efficient.
+Tuning is the process of altering algorithm parameters to effect performance.  Poor tuning can result in poor algorithm performance.  It can also result in an algorithm that gives reasonable performance but is not efficient. The goal is to set the parameters to optimal values so that it gives the best performance in terms of accuracy, precision and recall.
 
 I used GridSearchCV for parameter tuning. GridSearchCV allows us to construct a grid of all the combinations of parameters, tries each combination, and then reports back the best combination/model.
 
@@ -94,7 +94,7 @@ For the chosen decision tree classifier for example, I tried out multiple differ
 * F1: 0.25120
 * Best Parameters: {'min_samples_split': 10, 'max_depth': 2}
 
-The goal is to set the parameters to optimal values so that it gives the best performance in terms of accuracy, precision and recall. Setting those parameters wronge could result in overfitting. Se we should perform parameter tuning to control how much detail the model learns once we train it.
+ In other words, it is important to tune the algorithm parameters because setting those parameters wronge could result in overfitting or underfitting, poor performance (accuracy, percision and recalls) and slow running algorithms . Se we should perform parameter tuning to control how much detail the model learns once we train it.
 
 __5.__ What is validation, and what’s a classic mistake you can make if you do it wrong?  How did you validate your analysis?  [relevant rubric item: “validation strategy”]
 
